@@ -1,8 +1,8 @@
 ---
-title: "Online_News_Reports"
+title: "Online News Reports"
 author: "Matt Kasle"
 date: "10/15/2020"
-output: pdf_document
+output: rmarkdown::github_document
 ---
 
 ```{r setup, include=FALSE}
