@@ -3,28 +3,104 @@ title: "Online News Reports"
 author: "Matt Kasle"
 date: "10/15/2020"
 output: rmarkdown::github_document
+params:
+  day_of_week: ""
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+# Introduction
+You should have an introduction section that briefly describes the data and the variables you have to work with (no need to discuss all of them, just the ones you want to use).
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+You should also mention the purpose of your analysis and the methods you’ll use (no need to detail them here) for analysis.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Data
+When reading in your data, you should use a relative path.
+You should randomly sample from the () data in order to form a training (use 70% of the data) and test set (use 30% of the data). You should set the seed to make your work reproducible.
+```{r warning=FALSE, message = FALSE}
+set.seed(1)
+library(tidyverse)
+library(caret)
+library(tree)
 
-```{r cars}
-summary(cars)
+news <- read_csv("OnlineNewsPopularity.csv")
+
+names(news)
 ```
 
-## Including Plots
+```{r}
+parse(text="weekday_is_")
+varDayOfWeek <- parse(text=paste0("weekday_is_", params$day_of_week))
+news <- news %>% filter(eval(varDayOfWeek) == 1)
 
-You can also embed plots, for example:
+nrow(news)
+news <- news %>% select(-url)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+newsIndex <- createDataPartition(news$shares, p = 0.3, list = FALSE)
+newsTrain <- news[newsIndex, ]
+newsTest <- news[-newsIndex, ]
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Summarizations
+You should produce some basic (but meaningful) summary statistics and plots about the training data you are working with (especially as it relates to your response). The general things that the plots describe should be explained but, since we are going to automate things, there is no need to try and explain particular trends in the plots you see (unless you want to try and automate that too!).
+
+```{r}
+nrow(newsTrain)
+```
+
+```{r}
+ggplot(data = newsTrain, aes(x = shares)) +
+  geom_histogram() + xlab("Shares") + ggtitle(paste("Distribution of Shares in Training Data - ",
+                                                    params$day_of_week))
+```
+
+```{r}
+ggplot(data = newsTrain, aes(x = timedelta)) +
+  geom_histogram() + xlab("Shares") + ggtitle("Distribution of Shares in Training Data")
+```
+
+# Modeling
+
+## Regression Tree Model pruned using leave one out cross validation.
+```{r}
+treeFit <- tree(shares ~ ., data = newsTrain)
+#cvTree <- cv.tree(treeFit, K=nrow(newsTrain)-1)
+
+#cvTree
+
+#plot(cvTree$size ,cvTree$dev ,type="b")
+```
+
+## Boosted tree model, optimizing hyperparameters using 10-fold cross validation
+```{r, eval=FALSE}
+fitControl <- trainControl(## 10-fold CV
+                           method = "repeatedcv",
+                           number = 10,
+                           ## repeated ten times
+                           repeats = 10)
+
+boostedFit <- train(shares ~ ., data = newsTrain, 
+                 method = "gbm", 
+                 trControl = fitControl, 
+                 verbose = FALSE
+                 )
+
+boostedFit$bestTune
+```
+
+```{r, eval=FALSE}
+boostedFit$results
+```
+
+```{r, eval=FALSE}
+treePred <- predict(treeFit, newdata = dplyr::(newsTest, -shares))
+sqrt(mean((treePred-newsTest$shares)^2))
+```
+
+```{r, eval=FALSE}
+boostedTreePred <- predict(boostedFit, newdata = dplyr::select(newsTest, -shares))
+sqrt(mean((boostedTreePred-newsTest$shares)^2))
+```
+
