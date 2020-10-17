@@ -20,13 +20,13 @@ Of course, this supports the use of folders as well if you output the files into
 You can use the [editor on GitHub](https://github.com/kaslemr/Online-News-Popularity/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
 ### Links to Reports
-- [Monday Report](reports/monday.md)
-- [Tuesday Report](reports/tuesday.md)
-- [Wednesday Report](reports/wednesday.md)
-- [Thursday Report](reports/thursday.md)
-- [Friday Report](reports/friday.md)
+- [Monday report](reports/monday.md)
+- [Tuesday report](reports/tuesday.md)
+- [Wednesday report](reports/wednesday.md)
+- [Thursday report](reports/thursday.md)
+- [Friday report](reports/friday.md)
 - [Saturday report](reports/saturday.md)
-- [Sunday Report](reports/sunday.md)
+- [Sunday report](reports/sunday.md)
 
 ### Instruction to Re-Run Reports
 To run the automated production of weekday reports, fork the project and run `Rscript run_report.R`.
