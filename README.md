@@ -30,16 +30,7 @@ You can use the [editor on GitHub](https://github.com/kaslemr/Online-News-Popula
 
 ### Instruction to Re-Run Reports
 To run the automated production of weekday reports, fork the project and run `Rscript run_report.R`.
-The code used in this file is:
-`
-library(rmarkdown)
 
-days_of_week = c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
-
-for (day in days_of_week){
-  rmarkdown::render("online_news_automated_reports.Rmd", output_file = paste0(day,".html"), 
-                    params = list(day_of_week = day))
-}
 `
 
 
