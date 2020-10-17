@@ -12,13 +12,6 @@ The types of veriables include the number of words in the article, the number of
 
 The required packages to run this analysis are tidyverse, caret, tree, and patchwork.
 
-In the README.md file for the repo, give a brief description of the purpose of the repo and create links to each sub-document (Monday’s analysis, Tuesday’s analysis, etc.). Links can be made to the sub-documents using relative paths. For instance, if you have all of the outputted .md files in the main directory you would just use markdown linking:
-• The analysis for [Monday is available here](MondayAnalysis.md).
-Of course, this supports the use of folders as well if you output the files into separate folders.
-• You should also make a note of all packages required to run your analysis here.
-• You should include the code used to automate the process (i.e. the render function you used) here as well.
-You can use the [editor on GitHub](https://github.com/kaslemr/Online-News-Popularity/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
-
 ### Links to Reports
 - [Monday report](monday.md)
 - [Tuesday report](tuesday.md)
