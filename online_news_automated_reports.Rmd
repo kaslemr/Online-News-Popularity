@@ -5,6 +5,7 @@ date: "10/15/2020"
 output: rmarkdown::github_document
 params:
   day_of_week: "monday"
+  toc: yes
 ---
 
 ```{r setup, include=FALSE}
