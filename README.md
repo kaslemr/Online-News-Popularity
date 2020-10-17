@@ -1,37 +1,45 @@
-## Welcome to GitHub Pages
+## Online News Popularity Project
 
+The primary objective of this project is to predict the number of social media shares using two different tree-based algorithms. The first algorithm will be a non-ensemble regression tree, and the second algorithm will be a boosted trees algorithm, which is a state-of-the-art classification technique.
+
+The secondary objective of this project is to create an automated report that outputs the classification analysis for each articles published on each weekday. 
+
+The dataset summarizes a heterogeneous set of features about articles published by Mashable in a period of two years. The goal is to predict the number of shares in social networks (popularity).
+
+There are 61 attributes, 58 which are predictive attributes, 2 of which are non-predictive (url and timestamp), and 1 that is the target.
+
+The types of veriables include the number of words in the article, the number of words in the title, the positivity and sentimentality of the article, the article's subject, the number of keywords used, and much more.
+
+The required packages to run this analysis are tidyverse, caret, tree, and patchwork.
+
+In the README.md file for the repo, give a brief description of the purpose of the repo and create links to each sub-document (Monday’s analysis, Tuesday’s analysis, etc.). Links can be made to the sub-documents using relative paths. For instance, if you have all of the outputted .md files in the main directory you would just use markdown linking:
+• The analysis for [Monday is available here](MondayAnalysis.md).
+Of course, this supports the use of folders as well if you output the files into separate folders.
+• You should also make a note of all packages required to run your analysis here.
+• You should include the code used to automate the process (i.e. the render function you used) here as well.
 You can use the [editor on GitHub](https://github.com/kaslemr/Online-News-Popularity/edit/main/README.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### Links to Reports
+- [Monday report](reports/monday.md)
+- [Tuesday report](reports/tuesday.md)
+- [Wednesday report](reports/wednesday.md)
+- [Thursday report](reports/thursday.md)
+- [Friday report](reports/friday.md)
+- [Saturday report](reports/saturday.md)
+- [Sunday report](reports/sunday.md)
 
-### Markdown
+### Instruction to Re-Run Reports
+To run the automated production of weekday reports, fork the project and run `Rscript run_report.R`.
+The code used in this file is:
+`
+library(rmarkdown)
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+days_of_week = c("monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday")
 
-```markdown
-Syntax highlighted code block
+for (day in days_of_week){
+  rmarkdown::render("online_news_automated_reports.Rmd", output_file = paste0(day,".html"), 
+                    params = list(day_of_week = day))
+}
+`
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/kaslemr/Online-News-Popularity/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
