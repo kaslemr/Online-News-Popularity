@@ -275,7 +275,7 @@ boostedFit$results
 
 ### Linear regression model
 
-Next, we’ll fit a siple multiple linear regression model on train data.
+Next, we’ll fit a simple multiple linear regression model on train data.
 Summary of the model is printed below.
 
 ``` r
