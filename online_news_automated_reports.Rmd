@@ -152,6 +152,15 @@ boostedFit$bestTune
 boostedFit$results
 ```
 
+
+### Linear regression model
+Next, we'll fit a multiple linear regression model on train data. Summary of the model is printed below.
+```{r}
+linearfit<-lm(shares~.,data=newsTrain)
+summary(linearfit)
+```
+
+
 ## Model Evaluations
 Finally, we'll evaluate the performance of each model by seeking the lowest root mean squared error of its predictions on the test dataset when compared to the actual values in the dataset. This should be a good approximation of the model's performance on unseen data.
 
@@ -171,3 +180,11 @@ boostedTreePred <- predict(boostedFit, newdata = dplyr::select(newsTest, -shares
 sqrt(mean((boostedTreePred-newsTest$shares)^2))
 ```
 
+
+### linear regression
+
+Below is the RMSE of the multiple linear model:
+```{r, message=FALSE,warning=FALSE}
+linearPred<-predict(linearfit, newdata=dplyr::select(newsTest, -shares))
+sqrt(mean((linearPred-newsTest$shares)^2))
+```
